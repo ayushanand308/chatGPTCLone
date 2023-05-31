@@ -1,12 +1,12 @@
 import { faClone, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const InputForm = ({ handleChange, handleSubmit, value }) => {
+const InputForm = ({ handleChange, handleSubmit, value,style }) => {
     return (
       <form
         className="fixed bottom-0 left-4 right-4 mb-4 p-2 rounded-lg"
         onSubmit={handleSubmit}
-        style={{ backgroundColor: 'rgb(42, 55, 100)' }}
+        style={style}
       >
         <div className="flex items-center">
           <input

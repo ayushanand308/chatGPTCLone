@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputForm from './inputForm';
+import ImageInput from './imageInput';
 
 const Home = ({
   question,
@@ -13,6 +14,11 @@ const Home = ({
   setValue,
   handleChange,
   handleSubmit,
+  value1,
+  setValue1,
+  generatedImages,
+  setGeneratedImages,
+  handlesubmit1
 }) => {
     const navigate=useNavigate();
     const handleQuestionClick = (question) => {
@@ -24,27 +30,7 @@ const Home = ({
       };
 
 
-      const generateOutput = async (value) => {
-        const options={
-        method:"POST",
-        body:JSON.stringify({
-            message:value,
-        }),
-        headers:{
-            "Content-Type":"application/json"
-        }
-    }
-    
-    try {
-        const response = await fetch('http://localhost:8000/completions', options);
-        const data = await response.json();
-        console.log(data.choices[0].message);
-        SetOutput([...output,data.choices[0].message]);
-    } catch (error) {
-        console.error('Error', error);
-    }
-        
-    };
+      
 
 
 
@@ -105,25 +91,12 @@ const Home = ({
             </ul>
           </div>
           <div className="mb-4">
-            <input
-              className="focus:outline-none border-transparent focus:shadow-outline-blue rounded-lg py-2 px-4 block appearance-none leading-normal w-full"
-              type="text"
-              placeholder="Enter prompt for image generation"
-              style={{
-                backgroundColor: 'rgb(246, 241, 241)',
-                color: 'rgb(39, 55, 77)',
-              }}
-            />
+            <ImageInput handlesubmit1={handlesubmit1}
+            value1={value1}
+            setValue1={setValue1}
+            ></ImageInput>
           </div>
-          <button
-            className="font-bold py-2 px-4 rounded-full"
-            style={{
-              backgroundColor: 'rgb(25, 167, 206)',
-              color: 'rgb(246, 241, 241)',
-            }}
-          >
-            Generate Image
-          </button>
+          
         </div>
         <div
           className="md:w-1/2 flex flex-col items-center justify-center shadow-lg rounded-lg p-8"
@@ -175,12 +148,15 @@ const Home = ({
                 <p>"Can you recommend a good book?"</p>
               </li>
             </ul>
-          </div>
-          <InputForm
+            <InputForm
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             value={value}
+
+            style={{ backgroundColor: 'rgb(39, 55, 77)'}}
           />
+          </div>
+          
         </div>
       </div>
     </div>
