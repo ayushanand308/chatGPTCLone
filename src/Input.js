@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 const InputForm = () => {
-  const [message, setMessage] = useState("");
+  const [value, setValue] = useState("");
 
   const generateOutput = async () => {
     const options={
         method:"POST",
         body:JSON.stringify({
-            message:message,
+            message:value,
         }),
         headers:{
             "Content-Type":"application/json"
@@ -18,6 +18,7 @@ const InputForm = () => {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
       console.log(data)
+      console.log(data.choices[0].message);
     } catch (error) {
       console.error('Error', error);
     }
@@ -27,7 +28,7 @@ const InputForm = () => {
     e.preventDefault();
     try {
       await generateOutput();
-      setMessage("");
+      setValue("");
     } catch (error) {
       console.error('Error', error);
     }
@@ -36,10 +37,10 @@ const InputForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
+        type="file"
         id="message-input"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         placeholder="Type your message"
         className="w-md px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
@@ -54,3 +55,4 @@ const InputForm = () => {
 };
 
 export default InputForm;
+

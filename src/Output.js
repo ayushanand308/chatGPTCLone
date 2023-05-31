@@ -1,21 +1,19 @@
-/* import React from "react";
+import React from 'react';
 
-const Output=({messages})=>{
-    return(
-        
-        <div className="bg-gray-200 p-4 rounded-lg">
-            {messages.map((messages,index)=>(
-                <div key={index} className="message">
-                    {messages.sender==='user'?(
-                        <p>{messages.text}</p>
-                    ):(
-                        <p>{messages.text}</p>
-                    )}
-                </div>
-            ))}
-            
+const Output = ({ messages }) => {
+  return (
+    <div className="bg-gray-200 p-4 rounded-lg">
+      {messages.map((message, index) => (
+        <div key={index} className="message">
+          {message.role === 'assistant' ? (
+            <p>{message.text}</p>
+          ) : (
+            <p>{message.text}</p>
+          )}
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
-export default Output */
+export default Output;

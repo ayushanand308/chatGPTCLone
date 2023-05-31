@@ -5,7 +5,7 @@ const app=express()
 app.use(express.json())
 app.use(cors())
 
-const API_KEY="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"
+const API_KEY="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"
 
 app.post('/completions',async(req,res)=>{
     const options={
@@ -16,14 +16,15 @@ app.post('/completions',async(req,res)=>{
         },
 
         body:JSON.stringify({
-            model:"",
-            message:[{role:"user",content:"how are you?"}],
-            max_tokens:100,
+            model:"gpt-3.5-turbo",
+            messages:[{role:"user",content:req.body.message}],
+            max_tokens:1000,
+            
         })
     }
 
     try{
-        const response=await fetch("https://api.openai.com/v1/completions",options)
+        const response=await fetch("https://api.openai.com/v1/chat/completions",options)
         const data=await response.json()
         res.send(data)
     }
@@ -32,4 +33,4 @@ app.post('/completions',async(req,res)=>{
     }
 })
 
-app.listen(PORT,()=>console.log("Your server us running on port "+PORT))
+app.listen(PORT,()=>console.log("Your server is running on port "+PORT))
