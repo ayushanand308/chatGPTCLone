@@ -95,7 +95,7 @@ const [value, setValue] = useState("");
       },
       body: JSON.stringify({
         prompt: value1,
-        n: 4
+        n: 2
       })
     };
 

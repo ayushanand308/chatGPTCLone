@@ -3,11 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const API_KEY = "API_KEY";
+const API_KEY = "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";
 
 app.post('/completions', async (req, res) => {
   const options = {
