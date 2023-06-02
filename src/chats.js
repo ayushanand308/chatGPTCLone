@@ -2,13 +2,13 @@ import React, { useRef, useEffect } from "react";
 import questionImage from "../src/vecteezy_knowledgeable-cutie-3d-cute-girl-in-professor-character-with_22484107_704.png";
 import user from "../src/USER.png";
 import InputForm from "./inputForm";
-import Typewriter from "typewriter-effect";
 import { faClone, faCheck, faArrowDown, faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PropagateLoader } from 'react-spinners';
 
-const Chats = ({ question, output, time, handleChange, handleSubmit, value }) => {
+const Chats = ({ question, output, time, handleChange, handleSubmit, value, isLoading }) => {
   const [isCopied, setIsCopied] = useState(-1);
   const [scrollToBottom, setScrollToBottom] = useState(false);
   const navigate = useNavigate();
@@ -104,33 +104,24 @@ const Chats = ({ question, output, time, handleChange, handleSubmit, value }) =>
                     backgroundColor: "white",
                   }}
                 />
-                <div>
-                  <Typewriter
-                    options={{
-                      autoStart: true,
-                      loop: false,
-                      cursor: "",
-                      delay: 10,
-                    }}
-                    onInit={(typewriter) => {
-                      typewriter.typeString(pair.answer).start();
-                    }}
-                  />
-                </div>
+                <div>{pair.answer}</div>
               </div>
             </div>
           )}
         </div>
       ))}
-      <InputForm handleChange={handleChange} handleSubmit={handleSubmit} value={value} />
+      <div>
+        {isLoading && (
+          <PropagateLoader color="#36d7b7" size={10} speedMultiplier={1} style={{ bottom: "90px", position: "fixed" }} />
+        )}
+        <InputForm handleChange={handleChange} handleSubmit={handleSubmit} value={value} />
+      </div>
 
       <div style={{ float: "left", clear: "both" }} ref={messagesEndRef}></div>
 
-      <button className="scroll-to-bottom-button" onClick={scrollToBottomHandler}>
+      <button className="scroll-to-bottom-button " onClick={scrollToBottomHandler}>
         <FontAwesomeIcon icon={faArrowDown} />
       </button>
-
-      
     </div>
   );
 };

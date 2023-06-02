@@ -3,7 +3,6 @@ import Home from './home';
 import Chats from './chats';
 import { Route, Routes,useNavigate, json } from 'react-router-dom';
 import InputForm from './inputForm';
-import { PropagateLoader } from 'react-spinners';
 import ImageGeneration from './imageGeneration';
 
 
@@ -11,6 +10,7 @@ import { useState } from 'react';
 function App() {
   const navigate=useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
 
 
   const generateOutput = async () => {
@@ -88,6 +88,7 @@ const [value, setValue] = useState("");
   const [generatedImages, setGeneratedImages] = useState([]);
 
   const generateOutput1 = async () => {
+    setIsLoading(true);
     const options = {
       method: "POST",
       headers: {
@@ -106,15 +107,17 @@ const [value, setValue] = useState("");
     }catch(error){
       console.error('Error', error);
     }
+    setIsLoading(false)
   };
 
   const handlesubmit1=async (e)=>{
+    navigate('/generations');
+
     e.preventDefault();
     try{
       await generateOutput1();
       setPrompt([...prompt,value1]);
       setValue1("");
-      navigate('/generations');
     }catch(error){
       console.error('Error', error);
     }
@@ -142,18 +145,19 @@ const [value, setValue] = useState("");
   handleChange={handleChange}
   handleSubmit={handleSubmit}
   chatHistory={chatHistory}
-  setChatHistory={setChatHistory} />} />
+  setChatHistory={setChatHistory}
+  isLoading={isLoading}
+  setIsloading={setIsLoading} />} />
 
   <Route path='/generations' element={<ImageGeneration value1={value1} setValue1={setValue1} generatedImages={generatedImages} setGeneratedImages={setGeneratedImages} handlesubmit1={handlesubmit1}
   prompt={prompt}
-  setPrompt={setPrompt} />} />
+  setPrompt={setPrompt}
+  isLoading={isLoading} />} />
 
 
   
 </Routes>
-    {(isLoading &&
-  <PropagateLoader color="#36d7b7" size={10} speedMultiplier={1} style={{position:"absolute",bottom:"90px"}}/>
-)}
+    
 
     </div>
   );

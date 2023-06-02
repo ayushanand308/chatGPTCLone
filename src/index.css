@@ -9,6 +9,8 @@
 @import url("https://fonts.google.com/specimen/Roboto+Mono");
 
 
+
+
 .custom-hover-color:hover {
     color: rgb(199, 81, 207);
     cursor: pointer;
@@ -16,9 +18,11 @@
 
   .scroll-to-bottom-button {
     position: fixed;
-    bottom: 77px;
-    right: 16px;
-    padding: 10px;
+    bottom: 79px;
+    right: 21px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
     background-color: #fff;
     border: none;
     border-radius: 10px;
